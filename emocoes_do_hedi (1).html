@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emoções do Hedi</title>
+<style>
+:root{--bg:#101713;--panel:#18231d;--panel2:#202e26;--line:#304338;--text:#edf5ee;--muted:#a8b9ac;--green:#a7d6a2;--lime:#d6e9a5;--gold:#e7c987;--shadow:0 18px 50px #0005}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#284333 0,transparent 38%),radial-gradient(ellipse at 90% 20%,#3b3824 0,transparent 30%),var(--bg);color:var(--text);font:16px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+.wrap{max-width:1120px;margin:auto;padding:34px 22px 70px}.top{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:26px}.brand{display:flex;align-items:center;gap:12px}.logo{width:46px;height:46px;border-radius:15px;background:linear-gradient(145deg,#d6e9a5,#6f9d75);display:grid;place-items:center;color:#142018;font-size:24px}.eyebrow{font-size:11px;letter-spacing:.18em;color:var(--green);font-weight:800}.top small{color:var(--muted)}h1{font-size:clamp(34px,6vw,58px);line-height:1.02;letter-spacing:-.045em;margin:5px 0 12px}h2{font-size:21px;margin:0 0 5px;letter-spacing:-.02em}.sub{color:var(--muted);max-width:680px;margin:0}.pill{border:1px solid #526c55;color:var(--green);border-radius:99px;padding:8px 13px;font-size:12px;white-space:nowrap}
+.hero{border:1px solid #526b54;background:linear-gradient(120deg,#243c2d,#1a2921 68%,#302f20);border-radius:26px;padding:30px;box-shadow:var(--shadow);display:grid;grid-template-columns:1.5fr .8fr;gap:20px;align-items:center;margin-bottom:22px}.hero p{color:#c6d5c8;max-width:600px}.heroquote{font-family:Georgia,serif;font-size:23px;color:var(--lime);line-height:1.3;border-left:2px solid #a7d6a2;padding-left:18px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}.stat,.card{background:linear-gradient(160deg,#1d2b23,#17221c);border:1px solid var(--line);border-radius:20px;padding:19px}.stat strong{display:block;font-size:27px;color:var(--lime)}.stat span{font-size:12px;color:var(--muted)}
+.layout{display:grid;grid-template-columns:1.05fr .95fr;gap:18px}.card{box-shadow:0 10px 30px #0002}.cardhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.num{font-size:11px;color:var(--green);letter-spacing:.15em;font-weight:800}
+label{display:block;font-size:13px;color:#d8e5da;font-weight:650;margin:14px 0 7px}textarea,input,select{width:100%;background:#101a14;border:1px solid #3a5041;color:var(--text);border-radius:12px;padding:13px 14px;font:inherit;outline:none}textarea{min-height:132px;resize:vertical}textarea:focus,input:focus,select:focus{border-color:#a7d6a2;box-shadow:0 0 0 3px #a7d6a21c}.feelings{display:flex;flex-wrap:wrap;gap:8px}.feeling{border:1px solid #405448;background:#142018;color:#c8d7cb;border-radius:99px;padding:8px 12px;cursor:pointer;font-size:13px}.feeling.active{background:#d6e9a5;color:#18231d;border-color:#d6e9a5;font-weight:750}
+button{border:0;border-radius:12px;background:linear-gradient(120deg,#d6e9a5,#9fc99c);color:#142018;padding:13px 17px;font-weight:800;font-size:14px;cursor:pointer;transition:.18s}button:hover{transform:translateY(-1px);filter:brightness(1.04)}button.secondary{background:#293a2f;color:#dceadd;border:1px solid #49604e}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:17px}.hint{font-size:12px;color:var(--muted);margin-top:9px}
+.result{display:none;margin-top:18px;border:1px solid #536c51;background:#1d3023;border-radius:17px;padding:18px}.result.show{display:block}.result h3{color:var(--lime);margin:0 0 10px;font-size:18px}.result p{margin:8px 0;color:#d5e2d6}.result .quote{font:italic 19px Georgia,serif;color:var(--lime);margin-top:14px}
+.prompt{color:var(--muted);font-size:13px}.step{padding:13px 0;border-bottom:1px solid #304338}.step:last-child{border:0}.step b{color:var(--green);display:block;font-size:13px;margin-bottom:3px}
+.taskrow{display:flex;gap:9px}.taskrow input{flex:1}.tasklist{margin-top:12px;display:grid;gap:8px}.task{display:flex;align-items:center;gap:10px;background:#121d16;border:1px solid #304338;padding:10px 12px;border-radius:12px}.task input{width:auto;accent-color:#a7d6a2}.task.done span{text-decoration:line-through;color:#819387}.task button{margin-left:auto;padding:5px 8px;background:transparent;color:#a9b9ac}
+.history{display:grid;gap:9px;margin-top:14px}.entry{border:1px solid #304338;background:#121d16;padding:13px;border-radius:13px}.entrytop{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:11px}.entry strong{display:block;margin:5px 0}.entry p{margin:0;color:#b8c9bc;font-size:13px}.empty{color:var(--muted);font-size:13px;padding:15px;border:1px dashed #405448;border-radius:12px}
+.footer{text-align:center;color:#8da092;font-size:12px;margin-top:28px}.footer strong{color:var(--green)}
+
+.header-right{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.settings-toggle{padding:9px 12px}
+.settings-panel{margin:-8px 0 22px}
+.settings-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.scene{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;opacity:.42;transition:background 1s ease}
+.scene-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 75% 10%,var(--accent-glow),transparent 46%)}
+.scene.rain-scene{background:linear-gradient(155deg,#071b35 0%,#102c49 45%,#182c38 100%)}
+.scene.sun-scene{background:linear-gradient(155deg,#49301a 0%,#55421e 42%,#172d28 100%)}
+.scene.work-scene{background:linear-gradient(155deg,#26143d 0%,#182b4b 55%,#14231f 100%)}
+.scene.night-scene{background:linear-gradient(155deg,#100f2e 0%,#1c2450 55%,#121d2c 100%)}
+.scene-label{position:absolute;right:20px;bottom:16px;font-size:10px;letter-spacing:.2em;color:#d8e9ff;opacity:.6;font-weight:800}
+.rain{position:absolute;inset:-100px 0 0;background-image:repeating-linear-gradient(105deg,transparent 0 22px,#a9dfff55 23px,#a9dfff55 24px,transparent 25px 49px);background-size:75px 120px;opacity:0;transition:opacity .8s}
+.rain-scene .rain{opacity:.42;animation:rainfall .55s linear infinite}.no-motion *{animation:none!important;transition:none!important}.no-motion .rain-scene .rain{opacity:.16}
+@keyframes rainfall{to{transform:translateY(120px)}}
+:root{--accent:#a7d6a2;--accent-glow:#a7d6a255}
+body{font-size:var(--base-font,16px)}
+button,.feeling,.pill{transition:all .2s ease}
+button:hover,.feeling:hover{box-shadow:0 0 18px var(--accent-glow);transform:translateY(-2px)}
+button:not(.secondary){background:linear-gradient(115deg,var(--accent),var(--accent2));}
+.eyebrow,.num,.stat strong,.step b{color:var(--accent)}
+.hero{border-color:var(--accent);box-shadow:0 0 35px var(--accent-glow),var(--shadow)}
+.result{border-color:var(--accent)}
+.result h3,.result .quote{color:var(--accent)}
+.feeling.active{background:var(--accent);border-color:var(--accent);color:#10151c}
+
+@media(max-width:760px){.hero,.layout{grid-template-columns:1fr}.settings-grid{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}.hero{padding:23px}.top{align-items:flex-start;flex-direction:column}.header-right{width:100%}.pill{align-self:flex-start}}
+</style>
+</head>
+<body>
+<div class="scene" id="scene" aria-hidden="true"><div class="scene-glow"></div><div class="rain" id="rain"></div><div class="scene-label" id="sceneLabel">CÉU ABERTO · NOVAS PERSPECTIVAS</div></div>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><div class="logo">✦</div><div><div class="eyebrow">PAINEL PESSOAL DE PERSPECTIVA</div><small>Um dia de cada vez, uma escolha de cada vez.</small></div></div>
+    <div class="header-right"><div class="pill">● MODO EVOLUÇÃO</div><button class="secondary settings-toggle" id="settingsToggle">⚙ Personalizar</button></div>
+  </header>
+  <section class="card settings-panel" id="settingsPanel" hidden>
+    <div class="cardhead"><div><div class="num">PERSONALIZAÇÃO</div><h2>Seu estilo, suas cores</h2></div><span>🎮</span></div>
+    <div class="settings-grid">
+      <div><label for="fontSelect">Fonte do painel</label><select id="fontSelect"><option value="Inter">Moderna</option><option value="Arial">Clássica</option><option value="Georgia">Serifada</option><option value="monospace">Gamer / Monoespaçada</option></select></div>
+      <div><label for="colorSelect">Paleta de cores</label><select id="colorSelect"><option value="neon">Neon gamer</option><option value="cyber">Cyberpunk</option><option value="ice">Azul elétrico</option><option value="fire">Laranja plasma</option><option value="forest">Verde original</option></select></div>
+      <div><label for="fontSize">Tamanho da fonte</label><select id="fontSize"><option value="16">Padrão</option><option value="17">Um pouco maior</option><option value="18">Grande</option><option value="19">Extra grande</option></select></div>
+      <div><label for="motionSelect">Efeitos animados</label><select id="motionSelect"><option value="on">Ativados</option><option value="off">Reduzidos</option></select></div>
+    </div>
+    <p class="hint">As preferências ficam salvas neste navegador. O cenário também muda automaticamente conforme o relato.</p>
+  </section>
+
+  <section class="hero">
+    <div><div class="eyebrow">EMOÇÕES DO HEDI</div><h1>Menos reclamação.<br>Mais consciência.</h1><p>Um espaço para acolher o que você sente, enxergar o que ainda existe de bom e transformar frustração em uma próxima atitude possível.</p></div>
+    <div class="heroquote">“Um momento ruim não precisa definir o seu dia inteiro.”</div>
+  </section>
+
+  <section class="stats">
+    <div class="stat"><strong id="count">0</strong><span>REFLEXÕES REGISTRADAS</span></div>
+    <div class="stat"><strong id="tasksDone">0</strong><span>PEQUENAS AÇÕES CONCLUÍDAS</span></div>
+    <div class="stat"><strong id="days">Hoje</strong><span>SEU COMPROMISSO É DIÁRIO</span></div>
+  </section>
+
+  <main class="layout">
+    <section class="card">
+      <div class="cardhead"><div><div class="num">01 / DESABAFO</div><h2>O que aconteceu?</h2></div><span>☁️</span></div>
+      <p class="prompt">Escreva com sinceridade. Não precisa minimizar o problema nem fingir que está tudo bem.</p>
+      <label for="situation">Conte a situação</label>
+      <textarea id="situation" placeholder="Ex.: Tomei chuva de moto ao chegar em casa e fiquei com frio..."></textarea>
+      <label>Qual sentimento predominou?</label>
+      <div class="feelings" id="feelings">
+        <button class="feeling" data-feel="Frustração">😤 Frustração</button><button class="feeling" data-feel="Tristeza">😔 Tristeza</button><button class="feeling" data-feel="Raiva">😡 Raiva</button><button class="feeling" data-feel="Ansiedade">😰 Ansiedade</button><button class="feeling" data-feel="Desânimo">😞 Desânimo</button><button class="feeling" data-feel="Cansaço">😩 Cansaço</button><button class="feeling" data-feel="Preocupação">😟 Preocupação</button>
+      </div>
+      <div class="actions"><button id="reflect">✦ Encontrar uma nova perspectiva</button><button class="secondary" id="clear">Limpar</button></div>
+      <div class="hint">A reflexão é um exercício guiado por perguntas e perspectivas — não uma tentativa de apagar o que você sentiu.</div>
+      <div class="result" id="result" aria-live="polite"></div>
+    </section>
+
+    <section class="card">
+      <div class="cardhead"><div><div class="num">02 / MOVIMENTO</div><h2>Saia da procrastinação</h2></div><span>🌱</span></div>
+      <p class="prompt">Você não precisa resolver tudo agora. Escolha apenas o próximo passo.</p>
+      <label for="taskInput">Qual tarefa está adiando?</label>
+      <div class="taskrow"><input id="taskInput" placeholder="Ex.: Organizar meus documentos"><button id="addTask">Adicionar</button></div>
+      <div class="tasklist" id="taskList"><div class="empty">Suas pequenas ações aparecerão aqui.</div></div>
+      <div class="step"><b>REGRA DOS 5 MINUTOS</b>Comece pela menor parte da tarefa e faça só cinco minutos. O objetivo inicial é começar, não terminar tudo.</div>
+      <div class="step"><b>PERGUNTA-CHAVE</b>“Qual é a menor ação que posso fazer agora para facilitar a vida do meu eu de amanhã?”</div>
+    </section>
+
+    <section class="card">
+      <div class="cardhead"><div><div class="num">03 / MEMÓRIA BOA</div><h2>Coisas que merecem ser notadas</h2></div><span>☀️</span></div>
+      <p class="prompt">A gratidão não exige que tudo esteja perfeito. Ela só amplia o que você consegue enxergar.</p>
+      <div class="step"><b>SEU LAR</b>Você tem um lugar onde pode se abrigar, descansar e se aquecer.</div>
+      <div class="step"><b>SUAS CONQUISTAS</b>Coisas que hoje parecem comuns podem ter sido sonhos importantes em outra fase da vida.</div>
+      <div class="step"><b>SEUS RECURSOS</b>Perceba as pessoas, habilidades, oportunidades e ferramentas que ajudam você a seguir.</div>
+      <div class="step"><b>SUA CAPACIDADE DE AGIR</b>Mesmo quando não controla o que aconteceu, muitas vezes pode escolher seu próximo passo.</div>
+    </section>
+
+    <section class="card">
+      <div class="cardhead"><div><div class="num">04 / CAMINHO</div><h2>Meu histórico de reflexões</h2></div><span>📖</span></div>
+      <p class="prompt">Releia seus registros e perceba como sua perspectiva pode amadurecer com o tempo.</p>
+      <div id="history" class="history"><div class="empty">Suas reflexões salvas aparecerão aqui.</div></div>
+      <div class="actions"><button class="secondary" id="export">Exportar meus registros</button></div>
+    </section>
+  </main>
+  <div class="footer">EMOÇÕES DO HEDI · <strong>Gratidão sem positividade tóxica. Ação sem cobrança excessiva.</strong><br>Seja justo com o que sente e gentil com o caminho que está construindo.</div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+let feeling='', entries=JSON.parse(localStorage.getItem('hedi_entries')||'[]'), tasks=JSON.parse(localStorage.getItem('hedi_tasks')||'[]');
+const palettes={neon:['#b6ff3b','#20e3b2','#b6ff3b55'],cyber:['#ff4fd8','#8b5cf6','#ff4fd855'],ice:['#45d7ff','#477bff','#45d7ff55'],fire:['#ff9b42','#ff4d6d','#ff9b4255'],forest:['#a7d6a2','#d6e9a5','#a7d6a255']};
+function applySettings(){
+ const palette=palettes[localStorage.getItem('hedi_palette')||'neon'];
+ document.documentElement.style.setProperty('--accent',palette[0]);document.documentElement.style.setProperty('--accent2',palette[1]);document.documentElement.style.setProperty('--accent-glow',palette[2]);
+ document.documentElement.style.setProperty('--base-font',(localStorage.getItem('hedi_fontsize')||'16')+'px');
+ document.body.style.fontFamily=localStorage.getItem('hedi_font')||'Inter,ui-sans-serif,system-ui,sans-serif';
+ const motion=localStorage.getItem('hedi_motion')||'on';document.body.classList.toggle('no-motion',motion==='off');
+}
+$('settingsToggle').onclick=()=>{$('settingsPanel').hidden=!$('settingsPanel').hidden};
+[['fontSelect','hedi_font'],['colorSelect','hedi_palette'],['fontSize','hedi_fontsize'],['motionSelect','hedi_motion']].forEach(([id,key])=>{
+ const el=$(id);el.value=localStorage.getItem(key)||({fontSelect:'Inter',colorSelect:'neon',fontSize:'16',motionSelect:'on'}[id]);
+ el.addEventListener('change',()=>{localStorage.setItem(key,el.value);applySettings()});
+});
+applySettings();
+document.querySelectorAll('.feeling').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.feeling').forEach(x=>x.classList.remove('active'));b.classList.add('active');feeling=b.dataset.feel}));
+function save(){localStorage.setItem('hedi_entries',JSON.stringify(entries));localStorage.setItem('hedi_tasks',JSON.stringify(tasks));render()}
+function render(){
+ $('count').textContent=entries.length;$('tasksDone').textContent=tasks.filter(t=>t.done).length;
+ $('taskList').innerHTML=tasks.length?tasks.map((t,i)=>`<div class="task ${t.done?'done':''}"><input type="checkbox" ${t.done?'checked':''} data-task="${i}"><span>${esc(t.text)}</span><button data-del="${i}" aria-label="Excluir tarefa">✕</button></div>`).join(''):'<div class="empty">Suas pequenas ações aparecerão aqui.</div>';
+ $('history').innerHTML=entries.length?[...entries].reverse().slice(0,8).map(e=>`<div class="entry"><div class="entrytop"><span>${new Date(e.date).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})}</span><span>${esc(e.feeling||'Reflexão')}</span></div><strong>${esc(e.situation.slice(0,100))}${e.situation.length>100?'…':''}</strong><p>${esc(e.takeaway)}</p></div>`).join(''):'<div class="empty">Suas reflexões salvas aparecerão aqui.</div>';
+}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function setScene(text){
+ const t=text.toLowerCase(), scene=$('scene');scene.className='scene';
+ let label='CÉU ABERTO · NOVAS PERSPECTIVAS';
+ if(/chuva|frio|molh|tempestade|temporal/.test(t)){scene.classList.add('rain-scene');label='CHUVA · PAUSA, ABRIGO E RECOMEÇO';}
+ else if(/trabalho|chefe|emprego|serviço|estudo|prova|prazo/.test(t)){scene.classList.add('work-scene');label='MISSÃO · UM PASSO DE CADA VEZ';}
+ else if(/noite|sono|cansaço|exaust|insônia/.test(t)){scene.classList.add('night-scene');label='NOITE · DESCANSO TAMBÉM É PROGRESSO';}
+ else if(/sol|calor|praia|viagem|conquista|feliz|alegr/.test(t)){scene.classList.add('sun-scene');label='LUZ · RECONHEÇA O QUE FLORESCE';}
+ $('sceneLabel').textContent=label;
+}
+$('reflect').onclick=()=>{
+ const situation=$('situation').value.trim();if(!situation){$('situation').focus();return}
+ const low=situation.toLowerCase();setScene(situation);let positives=[
+ 'Há aspectos da sua vida que continuam presentes mesmo neste contratempo: seu espaço, seus recursos, suas capacidades e a possibilidade de recomeçar.',
+ 'Uma dificuldade não apaga o que você já construiu. Procure identificar o que segue funcionando e quais apoios estão disponíveis hoje.',
+ 'Talvez exista algo valioso que a rotina tornou invisível: um lugar para voltar, alguém com quem contar, uma habilidade ou uma oportunidade de tentar novamente.'
+ ];
+ let tailored=[];
+ if(/chuva|frio|molh|tempestade/.test(low)) tailored=['Você chegou a um lugar onde pode se secar, trocar de roupa e descansar. Ter um lar para voltar é algo significativo.','A moto também representa mobilidade e autonomia. O desconforto da chuva é real, mas não precisa ser a única lembrança do trajeto.','Imagine a chuva agora como uma cena de pausa: a água cai lá fora, mas você está em segurança, pode se aquecer e recuperar as energias. O mesmo céu que trouxe desconforto também irriga a terra e faz a vida continuar.'];
+ if(/trabalho|chefe|emprego|serviço/.test(low)) tailored=['Você pode reconhecer sua capacidade de trabalhar, aprender e construir alternativas, mesmo quando o ambiente ou o dia são difíceis.','O que aconteceu no trabalho merece ser avaliado com calma: há algo a conversar, ajustar ou estabelecer como limite?'];
+ if(/trânsito|engarraf|ônibus|demora|atras/.test(low)) tailored=['Você está em movimento e tentando chegar a algum lugar. O atraso incomoda, mas talvez este intervalo também possa ser usado para respirar e reorganizar o próximo passo.'];
+ if(/dinheiro|conta|pagar|preço|caro/.test(low)) tailored=['Sua preocupação financeira merece atenção prática, não culpa. Ter clareza sobre números e prioridades pode devolver uma parte da sensação de controle.'];
+ const good=tailored.length?tailored:positives;
+ const result=$('result');result.innerHTML=`<h3>☀️ Uma perspectiva mais ampla</h3><p><b>Primeiro: o que você sente importa.</b> ${esc(situation)} Pode ter sido desagradável, cansativo ou frustrante. Não é preciso fingir que foi bom.</p><p><b>O que talvez esteja passando despercebido:</b></p>${good.map(x=>`<p>• ${esc(x)}</p>`).join('')}<p><b>O que está sob seu controle?</b> Separe o fato daquilo que você pode fazer agora. Existe uma conversa, um ajuste, um cuidado ou uma decisão pequena que pode ajudar?</p><p><b>Uma atitude possível:</b> escolha uma ação simples para cuidar de você ou evitar que o mesmo problema se repita. Não precisa resolver tudo hoje.</p><div class="quote">“Posso reconhecer o que foi difícil sem esquecer tudo o que também existe de bom.”</div><div class="actions"><button id="saveEntry">Salvar esta reflexão</button></div>`;
+ result.classList.add('show');$('saveEntry').onclick=()=>{entries.push({date:new Date().toISOString(),situation,feeling,takeaway:good[0]});save();$('saveEntry').textContent='✓ Reflexão salva';$('saveEntry').disabled=true};
+};
+$('clear').onclick=()=>{$('situation').value='';$('result').classList.remove('show');feeling='';document.querySelectorAll('.feeling').forEach(x=>x.classList.remove('active'))};
+$('addTask').onclick=()=>{let v=$('taskInput').value.trim();if(!v)return;tasks.push({text:v,done:false});$('taskInput').value='';save()};
+$('taskInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('addTask').click()});
+$('taskList').addEventListener('change',e=>{if(e.target.dataset.task!==undefined){tasks[+e.target.dataset.task].done=e.target.checked;save()}});
+$('taskList').addEventListener('click',e=>{if(e.target.dataset.del!==undefined){tasks.splice(+e.target.dataset.del,1);save()}});
+$('export').onclick=()=>{const blob=new Blob([JSON.stringify({entries,tasks},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='emocoes-do-hedi-registros.json';a.click();URL.revokeObjectURL(a.href)};
+render();
+</script>
+</body>
+</html>
